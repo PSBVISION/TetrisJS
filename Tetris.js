@@ -1,3 +1,5 @@
+//Tetris Class
+
 class Tetris{
     constructor(imageX, imageY, template) {
         this.imageY = imageY;
@@ -35,31 +37,101 @@ const shapes = [
         [0, 1, 0],
         [0, 1, 0],
         [1, 1, 0], 
-    ],
+    ]),
     new Tetris(0,96, [
         [0, 1, 0],
         [1, 1, 1],
         [0, 1, 0], 
-    ],
-    new Tetris(0,72, [
+    ]),
+    new Tetris(0 ,72 , [
         [0, 1, 0],
         [0, 1, 0],
         [0, 1, 1], 
-    ],
-    new Tetris(0,48, [
+    ]),
+    new Tetris(0 ,48 , [
         [0, 1, 0],
         [0, 1, 0],
         [1, 1, 0], 
-    ],
-    new Tetris(0,24, [
-        [0, 1, 1, 0],
-        [0, 1, 0],
+    ]),
+    new Tetris(0 , 24, [
+        [0, 0, 1, 0],
+        [0, 0, 1, 0], 
+        [0, 0, 1, 0],
+        [0, 0, 1, 0],
+    ]),
+    new Tetris(0 , 0, [
+        [1, 1],
+        [1, 1], 
+    ]),
+    new Tetris(0, 48, [
+        [0, 0, 0],
         [1, 1, 0], 
-    ],
-    new Tetris(0,0, [
-        [0, 1, 0],
-        [0, 1, 0],
-        [1, 1, 0], 
-    ],
-    ),
+        [0, 1, 1], 
+    ]),
 ];
+
+let gameMap;
+let gameOver;
+let currentShape;
+let nextShape;
+let score;
+let initalTwoDArr;
+let whiteLineThickness = 4;
+
+let gameLoop = () => {
+    setInterval(update, 1000/gameSpeed);
+    setInterval(draw, 1000/framePerSecond);
+};
+
+let update = () => {};
+
+let drawRect = (x, y, width, height, color) => {
+    ctx.fillStyle = color;
+    ctx.fillRect(x, y, width, height);
+};
+
+let drawBackground = () => {
+    drawRect(0, 0, canvas.height, canvas.width, "#bca0dc");
+    for (let i = 0; i < squareCountX + 1; i++){
+        drawRect(
+            size * i - whiteLineThickness,
+            0,
+            whiteLineThickness,
+            canvas.height,
+            "#ffffff"
+        );
+    }
+};
+
+let draw = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawBackground();
+    drawSquares();
+    drawCurrentTetris();
+    drawNextShape();
+    if (gameOver){
+        drawGameOver();
+    }
+};
+
+let getRandomShape = () =>{
+    return Object.create(shapes[Math.floor(Math.random() * shapes.length)]);
+};
+
+let resetVars = () => {
+    initalTwoDArr = [];
+    for(let i = 0; i<squareCountY; i++) {
+        let temp = [];
+        for(let j = 0; i<squareCountX; j++){
+            temp.push({ imageX: -1, imageY: -1 });
+        }
+        initalTwoDArr.push(temp);
+    }
+    score = 0;
+    gameOver = false;
+    currentShape = getRandomShape();
+    nextShape = getRandomShape();
+    gameMap = initalTwoDArr;
+};
+
+gameLoop();
