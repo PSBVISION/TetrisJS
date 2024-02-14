@@ -4,9 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TetrisJs</title>
+    <style>
+        button:hover {
+          background-color: #bca0dc !important;
+        }
+        button:active {
+          background-color: #9969d0 !important;
+        }
+      </style>
+      <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
-<body>
-    <canvas id="canvas" width="400px" height="800px"></canvas>
+<body style="overflow: hidden;">
+    <div>
+    <canvas id="canvas" width="400px" height="800px" style="position:absolute; top: 0; left: 30%;"></canvas>
+    <canvas id="nextShapeCanvas" width="200" height="200" style="position: absolute; top: 10; left: 60%;"></canvas>
+    <canvas id="scoreCanvas" width="200" height="200" style="position: absolute; top: 220px; left: 60%;"></canvas>
+    
+    <button
+      style="
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background-color: gray;
+        border: 0px;
+        position: absolute;
+        bottom: 5px;
+        left: 60%;
+      "
+      onClick="resetVars()"
+    >
+      <svg height="100%" version="1.1" viewBox="0 0 36 36" width="100%">
+        <use class="ytp-svg-shadow" xlink:href="#ytp-id-54"></use>
+        <path
+          class="ytp-svg-fill"
+          fill="#ffffff"
+          d="M 18,11 V 7 l -5,5 5,5 v -4 c 3.3,0 6,2.7 6,6 0,3.3 -2.7,6 -6,6 -3.3,0 -6,-2.7 -6,-6 h -2 c 0,4.4 3.6,8 8,8 4.4,0 8,-3.6 8,-8 0,-4.4 -3.6,-8 -8,-8 z"
+          id="ytp-id-54"
+        ></path>
+      </svg>
+    </button>
     <img src="rotations.png" alt="image" id="image" style="display: none;">
     <script src="Tetris.js"></script>
 </body>
